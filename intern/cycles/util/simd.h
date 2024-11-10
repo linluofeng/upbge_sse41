@@ -476,7 +476,7 @@ __forceinline uint64_t bitscan(uint64_t value)
 
 /* quiet unused define warnings */
 #if defined(__KERNEL_SSE2__) || defined(__KERNEL_SSE3__) || defined(__KERNEL_SSSE3__) || \
-    defined(__KERNEL_SSE42__) || defined(__KERNEL_AVX__) || defined(__KERNEL_AVX2__)
+    defined(__KERNEL_SSE41__) || defined(__KERNEL_AVX__) || defined(__KERNEL_AVX2__)
 /* do nothing */
 #endif
 

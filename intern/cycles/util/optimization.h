@@ -9,25 +9,25 @@
 
 /* x86
  *
- * Compile a regular and SSE42 kernel. */
+ * Compile a regular and SSE41 kernel. */
 
 #  if defined(i386) || defined(_M_IX86)
 
-/* We require minimum SSE4.2 support on x86, so auto enable. */
-#    define __KERNEL_SSE42__
-#    ifdef WITH_KERNEL_SSE42
-#      define WITH_CYCLES_OPTIMIZED_KERNEL_SSE42
+/* We require minimum SSE4.1 support on x86, so auto enable. */
+#    define __KERNEL_SSE41__
+#    ifdef WITH_KERNEL_SSE41
+#      define WITH_CYCLES_OPTIMIZED_KERNEL_SSE41
 #    endif
 
 /* x86-64
  *
- * Compile a regular (includes SSE4.2) and AVX2 kernel. */
+ * Compile a regular (includes SSE4.1) and AVX2 kernel. */
 
 #  elif defined(__x86_64__) || defined(_M_X64)
 
-/* SSE4.2 is our minimum requirement for x86-64 CPUs, so auto enable */
-#    define __KERNEL_SSE42__
-/* no SSE4.2 kernel on x86-64, part of regular kernel */
+/* SSE4.1 is our minimum requirement for x86-64 CPUs, so auto enable */
+#    define __KERNEL_SSE41__
+/* no SSE4.1 kernel on x86-64, part of regular kernel */
 #    ifdef WITH_KERNEL_AVX2
 #      define WITH_CYCLES_OPTIMIZED_KERNEL_AVX2
 #    endif
@@ -44,7 +44,7 @@
 #    define __KERNEL_SSE__
 #    define __KERNEL_SSE2__
 #    define __KERNEL_SSE3__
-#    define __KERNEL_SSE42__
+#    define __KERNEL_SSE41__
 
 #  endif
 

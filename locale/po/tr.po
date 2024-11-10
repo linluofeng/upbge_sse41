@@ -81171,8 +81171,8 @@ msgid "AVX2"
 msgstr "AVX2"
 
 
-msgid "SSE42"
-msgstr "SSE42"
+msgid "SSE41"
+msgstr "SSE41"
 
 
 msgid "Adaptive Compile"
@@ -120108,8 +120108,8 @@ msgid "Disabled, built without OpenImageDenoise"
 msgstr "Devre dışı bırakıldı, OpenImageDenoise olmadan oluşturuldu"
 
 
-msgid "Disabled, CPU with SSE4.2 is required"
-msgstr "Devre dışı, SSE4.2'li CPU gereklidir"
+msgid "Disabled, CPU with SSE4.1 is required"
+msgstr "Devre dışı, SSE4.1'li CPU gereklidir"
 
 
 msgid "Image 1"

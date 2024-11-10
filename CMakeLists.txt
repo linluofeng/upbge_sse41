@@ -1477,12 +1477,12 @@ endif()
 
 # Test SIMD support, before platform includes to determine if sse2neon is needed.
 if(WITH_CPU_SIMD)
-  set(COMPILER_SSE42_FLAG)
+  set(COMPILER_SSE41_FLAG)
 
   # Test Neon first since macOS Arm can compile and run x86-64 SSE binaries.
   test_neon_support()
   if(NOT SUPPORT_NEON_BUILD)
-    test_sse_support(COMPILER_SSE42_FLAG)
+    test_sse_support(COMPILER_SSE41_FLAG)
   endif()
 endif()
 
@@ -1527,9 +1527,9 @@ if(WITH_CPU_SIMD)
     endif()
   else()
     # SSE
-    if(SUPPORT_SSE42_BUILD)
-      string(APPEND CMAKE_CXX_FLAGS " ${COMPILER_SSE42_FLAG}")
-      string(APPEND CMAKE_C_FLAGS " ${COMPILER_SSE42_FLAG}")
+    if(SUPPORT_SSE41_BUILD)
+      string(APPEND CMAKE_CXX_FLAGS " ${COMPILER_SSE41_FLAG}")
+      string(APPEND CMAKE_C_FLAGS " ${COMPILER_SSE41_FLAG}")
       # MSVC doesn't define any of these and only does the AVX and higher flags.
       # For consistency we define these flags for MSVC.
       if(WIN32)
@@ -1539,7 +1539,7 @@ if(WITH_CPU_SIMD)
           __SSE2__
           __SSE3__
           __SSE4_1__
-          __SSE4_2__
+          __SSE4_1__
         )
       endif()
     endif()
@@ -1555,8 +1555,8 @@ if(FIRST_RUN)
       else()
         message(STATUS "Neon SIMD instructions detected but unused, requires sse2neon")
       endif()
-    elseif(SUPPORT_SSE42_BUILD)
-      message(STATUS "SSE42 SIMD instructions enabled")
+    elseif(SUPPORT_SSE41_BUILD)
+      message(STATUS "SSE41 SIMD instructions enabled")
     else()
       message(STATUS "No SIMD instructions detected")
     endif()

@@ -142,7 +142,7 @@ int system_cpu_bits()
 #if defined(__x86_64__) || defined(_M_X64) || defined(__i386__) || defined(_M_IX86)
 
 struct CPUCapabilities {
-  bool sse42;
+  bool sse41;
   bool avx2;
 };
 
@@ -165,14 +165,13 @@ static CPUCapabilities &system_cpu_capabilities()
 
       const bool ssse3 = (result[2] & ((int)1 << 9)) != 0;
       const bool sse41 = (result[2] & ((int)1 << 19)) != 0;
-      const bool sse42 = (result[2] & ((int)1 << 20)) != 0;
 
       const bool fma3 = (result[2] & ((int)1 << 12)) != 0;
       const bool os_uses_xsave_xrestore = (result[2] & ((int)1 << 27)) != 0;
       const bool cpu_avx_support = (result[2] & ((int)1 << 28)) != 0;
 
       /* Simplify to combined capabilities for which we specialize kernels. */
-      caps.sse42 = sse && sse2 && sse3 && ssse3 && sse41 && sse42;
+      caps.sse41 = sse && sse2 && sse3 && ssse3 && sse41;
 
       if (os_uses_xsave_xrestore && cpu_avx_support) {
         // Check if the OS will save the YMM registers
@@ -195,7 +194,7 @@ static CPUCapabilities &system_cpu_capabilities()
         bool bmi2 = (result[1] & ((int)1 << 8)) != 0;
         bool avx2 = (result[1] & ((int)1 << 5)) != 0;
 
-        caps.avx2 = sse && sse2 && sse3 && ssse3 && sse41 && sse42 && avx && f16c && avx2 &&
+        caps.avx2 = sse && sse2 && sse3 && ssse3 && sse41 && avx && f16c && avx2 &&
                     fma3 && bmi1 && bmi2;
       }
     }
@@ -206,10 +205,10 @@ static CPUCapabilities &system_cpu_capabilities()
   return caps;
 }
 
-bool system_cpu_support_sse42()
+bool system_cpu_support_sse41()
 {
   CPUCapabilities &caps = system_cpu_capabilities();
-  return caps.sse42;
+  return caps.sse41;
 }
 
 bool system_cpu_support_avx2()
@@ -219,7 +218,7 @@ bool system_cpu_support_avx2()
 }
 #else
 
-bool system_cpu_support_sse42()
+bool system_cpu_support_sse41()
 {
   return false;
 }

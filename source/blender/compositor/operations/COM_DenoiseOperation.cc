@@ -22,7 +22,7 @@ bool COM_is_denoise_supported()
   /* OIDN 2.2 and up supports ARM64 on Windows and Linux. */
   return true;
 #  else
-  return BLI_cpu_support_sse42();
+  return BLI_cpu_support_sse41();
 #  endif
 
 #else

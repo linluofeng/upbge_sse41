@@ -540,37 +540,37 @@ function(setup_platform_linker_libs
 endfunction()
 
 macro(TEST_SSE_SUPPORT
-  _sse42_flags)
+  _sse41_flags)
 
   include(CheckCSourceRuns)
 
   # message(STATUS "Detecting SSE support")
   if(CMAKE_COMPILER_IS_GNUCC OR (CMAKE_C_COMPILER_ID MATCHES "Clang"))
-    set(${_sse42_flags} "-march=x86-64-v2")
+    set(${_sse41_flags} "-march=x86-64-v2")
   elseif(MSVC)
-    # msvc has no specific build flags for SSE42, but when using intrinsics it will
+    # msvc has no specific build flags for SSE41, but when using intrinsics it will
     # generate the right instructions.
-    set(${_sse42_flags} "")
+    set(${_sse41_flags} "")
   elseif(CMAKE_C_COMPILER_ID STREQUAL "Intel")
     if(WIN32)
-      set(${_sse42_flags} "/QxSSE4.2")
+      set(${_sse41_flags} "/QxSSE4.1")
     else()
-      set(${_sse42_flags} "-xsse4.2")
+      set(${_sse41_flags} "-xsse4.1")
     endif()
   else()
     message(WARNING "SSE flags for this compiler: '${CMAKE_C_COMPILER_ID}' not known")
-    set(${_sse42_flags})
+    set(${_sse41_flags})
   endif()
 
-  set(CMAKE_REQUIRED_FLAGS "${${_sse42_flags}}")
+  set(CMAKE_REQUIRED_FLAGS "${${_sse41_flags}}")
 
-  if(NOT DEFINED SUPPORT_SSE42_BUILD)
+  if(NOT DEFINED SUPPORT_SSE41_BUILD)
     # result cached
     check_c_source_runs("
       #include <nmmintrin.h>
       #include <emmintrin.h>
       int main(void) { __m128i v = _mm_setzero_si128(); v = _mm_cmpgt_epi64(v,v); return 0; }"
-    SUPPORT_SSE42_BUILD)
+    SUPPORT_SSE41_BUILD)
   endif()
 
   unset(CMAKE_REQUIRED_FLAGS)

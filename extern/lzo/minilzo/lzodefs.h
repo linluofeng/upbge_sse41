@@ -998,10 +998,10 @@
 #    endif
 #  endif
 #  endif
-#  if !defined(LZO_TARGET_FEATURE_SSE4_2)
+#  if !defined(LZO_TARGET_FEATURE_SSE4_1)
 #  if (LZO_TARGET_FEATURE_SSSE3)
-#    if defined(__SSE4_2__)
-#      define LZO_TARGET_FEATURE_SSE4_2     1
+#    if defined(__SSE4_1__)
+#      define LZO_TARGET_FEATURE_SSE4_1     1
 #    endif
 #  endif
 #  endif
@@ -1023,7 +1023,7 @@
 #if (LZO_TARGET_FEATURE_SSSE3 && !(LZO_TARGET_FEATURE_SSE2))
 #  error "unexpected configuration - check your compiler defines"
 #endif
-#if (LZO_TARGET_FEATURE_SSE4_2 && !(LZO_TARGET_FEATURE_SSSE3))
+#if (LZO_TARGET_FEATURE_SSE4_1 && !(LZO_TARGET_FEATURE_SSSE3))
 #  error "unexpected configuration - check your compiler defines"
 #endif
 #if (LZO_TARGET_FEATURE_AVX && !(LZO_TARGET_FEATURE_SSSE3))

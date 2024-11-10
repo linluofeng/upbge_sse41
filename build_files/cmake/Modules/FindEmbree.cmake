@@ -60,7 +60,7 @@ endif()
 if(EMBREE_STATIC_LIB)
   if(NOT (("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64") OR (APPLE AND ("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "arm64"))))
     set(_embree_SIMD_COMPONENTS
-      embree_sse42
+      embree_sse41
       embree_avx
       embree_avx2
     )

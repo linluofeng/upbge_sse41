@@ -43,16 +43,16 @@ MINLINE unsigned int bitscan_reverse_clear_uint(unsigned int *a);
 MINLINE unsigned int highest_order_bit_uint(unsigned int n);
 MINLINE unsigned short highest_order_bit_s(unsigned short n);
 
-#if COMPILER_GCC || COMPILER_CLANG
-#  define count_bits_i(i) __builtin_popcount(i)
-#  define count_bits_uint64(i) __builtin_popcountll(i)
-#elif COMPILER_MSVC
-#  define count_bits_i(i) __popcnt(i)
-#  define count_bits_uint64(i) __popcnt64(i)
-#else
+//#if COMPILER_GCC || COMPILER_CLANG
+//#  define count_bits_i(i) __builtin_popcount(i)
+//#  define count_bits_uint64(i) __builtin_popcountll(i)
+//#elif COMPILER_MSVC
+//#  define count_bits_i(i) __popcnt(i)
+//#  define count_bits_uint64(i) __popcnt64(i)
+//#else
 MINLINE int count_bits_i(unsigned int n);
 MINLINE int count_bits_uint64(uint64_t a);
-#endif
+//#endif
 
 MINLINE int float_as_int(float f);
 MINLINE unsigned int float_as_uint(float f);

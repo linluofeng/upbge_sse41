@@ -26,11 +26,11 @@ endif()
 
 # Build Flags
 # TODO: this code could be refactored a bit to avoid duplication.
-# NOTE: CXX_HAS_SSE42 is needed in case passing SSE flags fails altogether (`gcc-arm`).
+# NOTE: CXX_HAS_SSE41 is needed in case passing SSE flags fails altogether (`gcc-arm`).
 
 # Determine vectorization support and required build flags
 if(WITH_CYCLES_NATIVE_ONLY)
-  set(CXX_HAS_SSE42 FALSE)
+  set(CXX_HAS_SSE41 FALSE)
   set(CXX_HAS_AVX2 FALSE)
   add_definitions(
     -DWITH_KERNEL_NATIVE
@@ -65,13 +65,13 @@ if(WITH_CYCLES_NATIVE_ONLY)
     string(APPEND CMAKE_CXX_FLAGS " ${MSVC_NATIVE_ARCH_FLAGS}")
   endif()
 elseif(WIN32 AND MSVC AND SUPPORT_NEON_BUILD AND SSE2NEON_FOUND)
-  set(CXX_HAS_SSE42 FALSE)
+  set(CXX_HAS_SSE41 FALSE)
   set(CXX_HAS_AVX2 FALSE)
 elseif(NOT WITH_CPU_SIMD OR (SUPPORT_NEON_BUILD AND SSE2NEON_FOUND))
-  set(CXX_HAS_SSE42 FALSE)
+  set(CXX_HAS_SSE41 FALSE)
   set(CXX_HAS_AVX2 FALSE)
 elseif(WIN32 AND MSVC AND NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  set(CXX_HAS_SSE42 TRUE)
+  set(CXX_HAS_SSE41 TRUE)
   set(CXX_HAS_AVX2 TRUE)
 
   # /arch:AVX for VC2012 and above
@@ -83,38 +83,38 @@ elseif(WIN32 AND MSVC AND NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
   # there is no /arch:SSE3, but intrinsics are available anyway
   if(CMAKE_CL_64)
-    set(CYCLES_SSE42_FLAGS "")
+    set(CYCLES_SSE41_FLAGS "")
   else()
-    set(CYCLES_SSE42_FLAGS "/arch:SSE2")
+    set(CYCLES_SSE41_FLAGS "/arch:SSE2")
   endif()
 elseif(CMAKE_COMPILER_IS_GNUCC OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
-  check_cxx_compiler_flag(-msse4.2 CXX_HAS_SSE42)
+  check_cxx_compiler_flag(-msse4.1 CXX_HAS_SSE41)
   check_cxx_compiler_flag(-mavx2 CXX_HAS_AVX2)
 
-  if(CXX_HAS_SSE42)
-    set(CYCLES_SSE42_FLAGS "-msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2")
+  if(CXX_HAS_SSE41)
+    set(CYCLES_SSE41_FLAGS "-msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.1")
     if(CXX_HAS_AVX2)
-      set(CYCLES_AVX2_FLAGS "${CYCLES_SSE42_FLAGS} -mavx -mavx2 -mfma -mlzcnt -mbmi -mbmi2 -mf16c")
+      set(CYCLES_AVX2_FLAGS "${CYCLES_SSE41_FLAGS} -mavx -mavx2 -mfma -mlzcnt -mbmi -mbmi2 -mf16c")
     endif()
   endif()
 
 elseif(WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
-  check_cxx_compiler_flag(/QxSSE4.2 CXX_HAS_SSE42)
+  check_cxx_compiler_flag(/QxSSE4.1 CXX_HAS_SSE41)
   check_cxx_compiler_flag(/QxCORE-AVX2 CXX_HAS_AVX2)
 
-  if(CXX_HAS_SSE42)
-    set(CYCLES_SSE42_FLAGS "/QxSSE4.2")
+  if(CXX_HAS_SSE41)
+    set(CYCLES_SSE41_FLAGS "/QxSSE4.1")
 
     if(CXX_HAS_AVX2)
       set(CYCLES_AVX2_FLAGS "/QxCORE-AVX2")
     endif()
   endif()
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
-  check_cxx_compiler_flag(-xsse4.2 CXX_HAS_SSE42)
+  check_cxx_compiler_flag(-xsse4.1 CXX_HAS_SSE41)
   check_cxx_compiler_flag(-xcore-avx2 CXX_HAS_AVX2)
 
-  if(CXX_HAS_SSE42)
-    set(CYCLES_SSE42_FLAGS "-xsse4.2")
+  if(CXX_HAS_SSE41)
+    set(CYCLES_SSE41_FLAGS "-xsse4.1")
 
     if(CXX_HAS_AVX2)
       set(CYCLES_AVX2_FLAGS "-xcore-avx2")
@@ -122,12 +122,12 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
   endif()
 endif()
 
-if(CXX_HAS_SSE42)
+if(CXX_HAS_SSE41)
   add_definitions(
-    -DWITH_KERNEL_SSE42
+    -DWITH_KERNEL_SSE41
   )
-  # We require SSE4.2 as a minimum, so make use of it
-  string(APPEND CMAKE_CXX_FLAGS " ${CYCLES_SSE42_FLAGS}")
+  # We require SSE4.1 as a minimum, so make use of it
+  string(APPEND CMAKE_CXX_FLAGS " ${CYCLES_SSE41_FLAGS}")
 endif()
 
 if(CXX_HAS_AVX2)
@@ -173,7 +173,7 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
     # Assume a fixed rounding mode for better constant folding.
     list(APPEND CYCLES_MATH_FLAGS "-fno-rounding-math")
 
-    if(CXX_HAS_SSE42)
+    if(CXX_HAS_SSE41)
       list(APPEND CYCLES_MATH_FLAGS "-mfpmath=sse")
     endif()
   endif()

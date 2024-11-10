@@ -31,7 +31,7 @@ static void __cpuid(
 }
 #endif
 
-static int cpu_supports_sse42()
+static int cpu_supports_sse41()
 {
   int result[4], num;
   __cpuid(result, 0);
@@ -39,7 +39,7 @@ static int cpu_supports_sse42()
 
   if (num >= 1) {
     __cpuid(result, 0x00000001);
-    return (result[2] & (int(1) << 20)) != 0;
+    return (result[2] & (int(1) << 19)) != 0;
   }
   return 0;
 }
@@ -67,10 +67,10 @@ static const char *cpu_brand_string()
 extern "C" __declspec(dllexport) void cpu_check_win32()
 {
 #  ifdef _M_X64
-  if (!cpu_supports_sse42()) {
+  if (!cpu_supports_sse41()) {
     std::string error_title = "Unsupported CPU - " + std::string(cpu_brand_string());
     MessageBoxA(NULL,
-                "Blender requires a CPU with SSE42 support.",
+                "Blender requires a CPU with SSE41 support.",
                 error_title.c_str(),
                 MB_OK | MB_ICONERROR);
     exit(-1);
@@ -94,9 +94,9 @@ BOOL WINAPI DllMain(HINSTANCE /*hinstDLL*/, DWORD fdwReason, LPVOID /*lpvReserve
 static __attribute__((constructor)) void cpu_check()
 {
 #  ifdef __x86_64
-  if (!cpu_supports_sse42()) {
+  if (!cpu_supports_sse41()) {
     std::string error = "Unsupported CPU - " + std::string(cpu_brand_string()) +
-                        "\nBlender requires a CPU with SSE42 support.";
+                        "\nBlender requires a CPU with SSE41 support.";
     printf("%s\n", error.c_str());
     exit(-1);
   }

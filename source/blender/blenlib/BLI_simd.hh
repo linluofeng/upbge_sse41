@@ -42,8 +42,8 @@
     defined(WITH_SSE2NEON) && !defined(DISABLE_SSE2NEON)
 /* SSE4 is emulated via sse2neon. */
 #  define BLI_HAVE_SSE4 1
-#elif defined(__SSE4_2__)
-/* Native SSE4.2. */
+#elif defined(__SSE4_1__)
+/* Native SSE4.1. */
 #  include <nmmintrin.h>
 #  define BLI_HAVE_SSE4 1
 #else

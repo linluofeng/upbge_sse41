@@ -581,7 +581,7 @@ static UInt64 x86_xgetbv_0(UInt32 num)
 #define MY_PF_XSAVE_ENABLED                            17
 // #define MY_PF_SSSE3_INSTRUCTIONS_AVAILABLE             36
 // #define MY_PF_SSE4_1_INSTRUCTIONS_AVAILABLE            37
-// #define MY_PF_SSE4_2_INSTRUCTIONS_AVAILABLE            38
+// #define MY_PF_SSE4_1_INSTRUCTIONS_AVAILABLE            38
 // #define MY_PF_AVX_INSTRUCTIONS_AVAILABLE               39
 // #define MY_PF_AVX2_INSTRUCTIONS_AVAILABLE              40
 // #define MY_PF_AVX512F_INSTRUCTIONS_AVAILABLE           41

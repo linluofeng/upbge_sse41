@@ -96087,8 +96087,8 @@ msgid "AVX2"
 msgstr "AVX2"
 
 
-msgid "SSE42"
-msgstr "SSE42"
+msgid "SSE41"
+msgstr "SSE41"
 
 
 msgid "Adaptive Compile"
@@ -139832,7 +139832,7 @@ msgid "Disabled, built without OpenImageDenoise"
 msgstr "已禁用, 未使用OpenImageDenoise编译"
 
 
-msgid "Disabled, CPU with SSE4.2 is required"
+msgid "Disabled, CPU with SSE4.1 is required"
 msgstr "已禁用, 需要带SSE4.2的CPU"
 
 

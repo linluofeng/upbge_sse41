@@ -4,24 +4,24 @@
 
 /* CPU kernel entry points */
 
-/* On x86-64, our minimum is SSE4.2, so avoid the extra kernel and compile this
- * one with SSE4.2 intrinsics.
+/* On x86-64, our minimum is SSE4.1, so avoid the extra kernel and compile this
+ * one with SSE4.1 intrinsics.
  */
 #if defined(__x86_64__) || defined(_M_X64)
 #  define __KERNEL_SSE__
 #  define __KERNEL_SSE2__
 #  define __KERNEL_SSE3__
 #  define __KERNEL_SSSE3__
-#  define __KERNEL_SSE42__
+#  define __KERNEL_SSE41__
 #endif
 
 /* When building kernel for native machine detect kernel features from the flags
  * set by compiler.
  */
 #ifdef WITH_KERNEL_NATIVE
-#  ifdef __SSE4_2__
-#    ifndef __KERNEL_SSE42__
-#      define __KERNEL_SSE42__
+#  ifdef __SSE4_1__
+#    ifndef __KERNEL_SSE41__
+#      define __KERNEL_SSE41__
 #    endif
 #  endif
 #  ifdef __AVX__

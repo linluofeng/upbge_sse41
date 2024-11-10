@@ -1085,7 +1085,7 @@ if(WITH_CYCLES AND WITH_CYCLES_EMBREE)
         ${EMBREE_LIBRARIES}
         optimized ${LIBDIR}/embree/lib/embree_avx2.lib
         optimized ${LIBDIR}/embree/lib/embree_avx.lib
-        optimized ${LIBDIR}/embree/lib/embree_sse42.lib
+        optimized ${LIBDIR}/embree/lib/embree_sse41.lib
         optimized ${LIBDIR}/embree/lib/lexers.lib
         optimized ${LIBDIR}/embree/lib/math.lib
         optimized ${LIBDIR}/embree/lib/simd.lib
@@ -1093,7 +1093,7 @@ if(WITH_CYCLES AND WITH_CYCLES_EMBREE)
         optimized ${LIBDIR}/embree/lib/tasking.lib
         debug ${LIBDIR}/embree/lib/embree_avx2_d.lib
         debug ${LIBDIR}/embree/lib/embree_avx_d.lib
-        debug ${LIBDIR}/embree/lib/embree_sse42_d.lib
+        debug ${LIBDIR}/embree/lib/embree_sse41_d.lib
         debug ${LIBDIR}/embree/lib/lexers_d.lib
         debug ${LIBDIR}/embree/lib/math_d.lib
         debug ${LIBDIR}/embree/lib/simd_d.lib

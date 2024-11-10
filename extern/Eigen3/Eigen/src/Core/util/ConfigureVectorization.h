@@ -237,8 +237,8 @@
     #ifdef __SSE4_1__
       #define EIGEN_VECTORIZE_SSE4_1
     #endif
-    #ifdef __SSE4_2__
-      #define EIGEN_VECTORIZE_SSE4_2
+    #ifdef __SSE4_1__
+      #define EIGEN_VECTORIZE_SSE4_1
     #endif
     #ifdef __AVX__
       #ifndef EIGEN_USE_SYCL 
@@ -247,7 +247,7 @@
       #define EIGEN_VECTORIZE_SSE3
       #define EIGEN_VECTORIZE_SSSE3
       #define EIGEN_VECTORIZE_SSE4_1
-      #define EIGEN_VECTORIZE_SSE4_2
+      #define EIGEN_VECTORIZE_SSE4_1
     #endif
     #ifdef __AVX2__
       #ifndef EIGEN_USE_SYCL 
@@ -257,7 +257,7 @@
       #define EIGEN_VECTORIZE_SSE3
       #define EIGEN_VECTORIZE_SSSE3
       #define EIGEN_VECTORIZE_SSE4_1
-      #define EIGEN_VECTORIZE_SSE4_2
+      #define EIGEN_VECTORIZE_SSE4_1
     #endif
     #if defined(__FMA__) || (EIGEN_COMP_MSVC && defined(__AVX2__))
       // MSVC does not expose a switch dedicated for FMA
@@ -281,7 +281,7 @@
       #define EIGEN_VECTORIZE_SSE3
       #define EIGEN_VECTORIZE_SSSE3
       #define EIGEN_VECTORIZE_SSE4_1
-      #define EIGEN_VECTORIZE_SSE4_2
+      #define EIGEN_VECTORIZE_SSE4_1
       #ifndef EIGEN_USE_SYCL
         #ifdef __AVX512DQ__
           #define EIGEN_VECTORIZE_AVX512DQ
@@ -353,9 +353,6 @@
         #endif
         #ifdef EIGEN_VECTORIZE_SSE4_1
         #include <smmintrin.h>
-        #endif
-        #ifdef EIGEN_VECTORIZE_SSE4_2
-        #include <nmmintrin.h>
         #endif
         #if defined(EIGEN_VECTORIZE_AVX) || defined(EIGEN_VECTORIZE_AVX512)
         #include <immintrin.h>
@@ -476,11 +473,11 @@ namespace Eigen {
 
 inline static const char *SimdInstructionSetsInUse(void) {
 #if defined(EIGEN_VECTORIZE_AVX512)
-  return "AVX512, FMA, AVX2, AVX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2";
+  return "AVX512, FMA, AVX2, AVX, SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.1";
 #elif defined(EIGEN_VECTORIZE_AVX)
-  return "AVX SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2";
-#elif defined(EIGEN_VECTORIZE_SSE4_2)
-  return "SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2";
+  return "AVX SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.1";
+#elif defined(EIGEN_VECTORIZE_SSE4_1)
+  return "SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.1";
 #elif defined(EIGEN_VECTORIZE_SSE4_1)
   return "SSE, SSE2, SSE3, SSSE3, SSE4.1";
 #elif defined(EIGEN_VECTORIZE_SSSE3)
