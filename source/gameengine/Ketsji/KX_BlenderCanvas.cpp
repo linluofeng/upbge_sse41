@@ -32,8 +32,8 @@
 #include "KX_BlenderCanvas.h"
 
 #include "BKE_context.hh"
-#include "BKE_image.h"
-#include "BKE_image_format.h"
+#include "BKE_image.hh"
+#include "BKE_image_format.hh"
 #include "BLI_path_utils.hh"
 #include "BLI_string.h"
 #include "DNA_scene_types.h"
@@ -48,14 +48,12 @@
 
 KX_BlenderCanvas::KX_BlenderCanvas(
     RAS_Rasterizer *rasty, wmWindowManager *wm, wmWindow *win, rcti *viewport, struct ARegion *ar, bool useViewportRender)
-    : RAS_ICanvas(rasty), m_wm(wm), m_win(win), m_ar(ar)
+    : RAS_ICanvas(rasty), m_wm(wm), m_win(win), m_ar(ar), m_useViewportRender(useViewportRender)
 {
   m_frame = 1;
 
   m_viewportArea = RAS_Rect(viewport->xmin, viewport->ymin, viewport->xmax, viewport->ymax);
   m_windowArea = RAS_Rect(ar->winrct.xmin, ar->winrct.ymin, ar->winrct.xmax, ar->winrct.ymax);
-
-  m_useViewportRender = useViewportRender;
 }
 
 KX_BlenderCanvas::~KX_BlenderCanvas()

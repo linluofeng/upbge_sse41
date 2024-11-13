@@ -32,8 +32,8 @@
 #include "GPG_Canvas.h"
 
 #include "BKE_context.hh"
-#include "BKE_image.h"
-#include "BKE_image_format.h"
+#include "BKE_image.hh"
+#include "BKE_image_format.hh"
 #include "BLI_path_utils.hh"
 #include "BLI_string.h"
 #include "DNA_space_types.h"
@@ -46,7 +46,7 @@
 #include "KX_Globals.h"
 
 GPG_Canvas::GPG_Canvas(bContext *C, RAS_Rasterizer *rasty, GHOST_IWindow *window, bool useViewportRender)
-    : RAS_ICanvas(rasty), m_window(window), m_width(0), m_height(0), m_nativePixelSize(1)
+    : RAS_ICanvas(rasty), m_context(C), m_window(window), m_width(0), m_height(0), m_useViewportRender(useViewportRender), m_nativePixelSize(1)
 {
   if (m_window) {
     GHOST_Rect bnds;
@@ -54,9 +54,6 @@ GPG_Canvas::GPG_Canvas(bContext *C, RAS_Rasterizer *rasty, GHOST_IWindow *window
     m_nativePixelSize = window->getNativePixelSize();
     this->Resize(bnds.getWidth(), bnds.getHeight());
   }
-
-  m_context = C;
-  m_useViewportRender = useViewportRender;
 }
 
 GPG_Canvas::~GPG_Canvas()
